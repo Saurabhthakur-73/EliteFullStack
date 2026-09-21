@@ -34,7 +34,7 @@ const Login = () => {
         <h2>Welcome back</h2>
         {error && <p className="error-text">{error}</p>}
 
-        <input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} required />
+        <input name="email" type="email" autoCapitalize="none" autoCorrect="off" placeholder="Email" value={form.email} onChange={handleChange} required />
         <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
 
         <button type="submit" disabled={loading}>

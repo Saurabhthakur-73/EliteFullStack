@@ -15,12 +15,24 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: "Please fill all required fields" });
     }
 
-    const userExists = await User.findOne({ email });
+    // Normalize email — lowercase + trim, so "Deep90@gmail.com" and
+    // "deep90@gmail.com" are always treated as the same account.
+    // This fixes mobile keyboards auto-capitalizing the first letter.
+    const normalizedEmail = email.toLowerCase().trim();
+
+    const userExists = await User.findOne({ email: normalizedEmail });
     if (userExists) {
       return res.status(400).json({ message: "User already exists with this email" });
     }
 
-    const user = await User.create({ name, email, password, phone, role, city });
+    const user = await User.create({
+      name,
+      email: normalizedEmail,
+      password,
+      phone,
+      role,
+      city,
+    });
 
     res.status(201).json({
       _id: user._id,
@@ -39,7 +51,11 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+
+    // Same normalization here — must match how it was saved at signup.
+    const normalizedEmail = email.toLowerCase().trim();
+
+    const user = await User.findOne({ email: normalizedEmail });
 
     if (user && (await user.matchPassword(password))) {
       res.json({

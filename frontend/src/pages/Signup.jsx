@@ -42,7 +42,7 @@ const Signup = () => {
         {error && <p className="error-text">{error}</p>}
 
         <input name="name" placeholder="Full Name" value={form.name} onChange={handleChange} required />
-        <input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} required />
+        <input name="email" type="email" autoCapitalize="none" autoCorrect="off" placeholder="Email" value={form.email} onChange={handleChange} required />
         <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
         <input name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} />
         <input name="city" placeholder="City" value={form.city} onChange={handleChange} />
