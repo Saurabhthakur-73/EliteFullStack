@@ -31,7 +31,9 @@ const Login = () => {
   return (
     <div className="auth-page">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Welcome back</h2>
+        <h2 className="text-3xl md:text-3xl font-extrabold text-center tracking-tight leading-tight mb-4">
+          Welcome back
+        </h2>
         {error && <p className="error-text">{error}</p>}
 
         <input name="email" type="email" autoCapitalize="none" autoCorrect="off" placeholder="Email" value={form.email} onChange={handleChange} required />
