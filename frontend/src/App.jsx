@@ -12,6 +12,8 @@ import CreatePainterProfile from "./pages/CreatePainterProfile.jsx";
 import PainterDashboard from "./pages/PainterDashboard.jsx";
 import MyBookings from "./pages/MyBookings.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
+import ForgotPassword from './pages/ForgotPassword.jsx'; 
+import ResetPassword from './pages/ResetPassword.jsx';
 import "./App.css";
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
           <Route path="/dashboard" element={<PainterDashboard />} />
           <Route path="/my-bookings" element={<MyBookings />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} /> 
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </main>
     </>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios.js";
 import { AuthContext } from "../context/AuthContext.jsx";
 
@@ -36,6 +36,11 @@ const Login = () => {
 
         <input name="email" type="email" autoCapitalize="none" autoCorrect="off" placeholder="Email" value={form.email} onChange={handleChange} required />
         <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
+        <div style={{ textAlign: "right", marginTop: "-0.4rem" }}>
+          <Link to="/forgot-password" style={{ fontSize: "0.85rem", color: "var(--primary)" }}>
+            Forgot Password?
+          </Link>
+        </div>
 
         <button type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
