@@ -48,7 +48,7 @@ const Home = () => {
               <span className="search-icon">📍</span>
 
               <div>
-                <label>Your Location</label>
+                <label>Your Locationn</label>
 
                 <input
                   type="text"
