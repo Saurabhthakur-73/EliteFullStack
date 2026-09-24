@@ -38,7 +38,7 @@ const Signup = () => {
   return (
     <div className="auth-page">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2 className="text-3xl md:text-2xl font-bold text-center tracking-tight leading-tight mb-4">Create your account</h2>
+        <h2 className="text-3xl md:text-2xl font-bold text-center tracking-tight leading-tight mb-4">Create new account</h2>
         {error && <p className="error-text">{error}</p>}
 
         <input name="name" placeholder="Full Name" value={form.name} onChange={handleChange} required />
