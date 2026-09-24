@@ -130,7 +130,7 @@ const Home = () => {
           experience!”
 
           <div className="stat-quote-author">
-            — Priya Sharma, Delhi
+            — Saurabh Rana, Noida
           </div>
         </div>
       </section>
