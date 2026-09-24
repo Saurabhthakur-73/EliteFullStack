@@ -721,6 +721,11 @@
 
 /* ---------- Home Page Redesign (ADD to end of CSS file) ---------- */
 
+/* ==========================================================
+   HOME PAGE — Complete CSS (replaces everything from
+   .home-page down to the end of the old mobile media query)
+   ========================================================== */
+
 .home-page {
   max-width: 1300px;
   margin: 0 auto;
@@ -748,7 +753,7 @@
 }
 
 .home-hero-text h1 {
-  font-size: 2.6rem;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
   font-weight: 800;
   line-height: 1.15;
   color: var(--text);
@@ -806,6 +811,7 @@
   font-size: 0.9rem;
   width: 100%;
   padding: 0.1rem 0;
+  background: transparent;
 }
 
 .search-divider {
@@ -838,16 +844,14 @@
   color: var(--muted);
 }
 
-/* ----- Hero visual (right side) ----- */
+/* ----- Hero visual (real photo, right side on desktop) ----- */
 .home-hero-visual {
   position: relative;
   width: 100%;
   aspect-ratio: 3 / 2;
   border-radius: 20px;
   overflow: hidden;
-  padding: 0;
-  margin: 0;
-  background: transparent;
+  background: #f3d9dc; /* shows briefly while the image loads */
 }
 
 .hero-painter-image {
@@ -855,35 +859,32 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center;
-  border-radius: 20px;
+  object-position: center 20%; /* keeps faces/heads in frame when cropped */
 }
 
 .hero-visual-badge {
   position: absolute;
   top: 1.2rem;
   left: 1.2rem;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   padding: 0.4rem 0.9rem;
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--text);
-}
-
-.hero-visual-icon {
-  font-size: 5rem;
+  z-index: 2;
 }
 
 .hero-visual-tag {
   position: absolute;
   bottom: 1.2rem;
   left: 1.2rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   padding: 0.6rem 1rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  z-index: 2;
 }
 
 .hero-visual-tag strong {
@@ -956,7 +957,7 @@
 }
 
 .how-it-works h2 {
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
   font-weight: 800;
 }
 
@@ -971,7 +972,7 @@
 
 .steps-row {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
@@ -1003,48 +1004,61 @@
 .step-arrow {
   font-size: 1.3rem;
   color: var(--muted);
+  display: flex;
+  align-items: center;
 }
 
-/* ----- Responsive ----- */
+/* ==========================================================
+   TABLET (900px and below) — stack hero, keep everything else roomy
+   ========================================================== */
 @media (max-width: 900px) {
   .home-hero {
     grid-template-columns: 1fr;
   }
+
   .home-hero-visual {
-    min-height: 220px;
+    aspect-ratio: 16 / 9;
   }
+
   .stats-bar {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .stat-quote {
     border-left: none;
     border-top: 1px solid var(--border);
     padding-left: 0;
     padding-top: 1rem;
+    font-size: 0.88rem;
   }
+
   .steps-row {
     flex-direction: column;
+    align-items: center;
   }
+
+  .step-card {
+    width: 100%;
+    max-width: 420px;
+  }
+
   .step-arrow {
     transform: rotate(90deg);
   }
 }
 
-/* ---------- Home Page — Mobile Fixes (ADD to end of CSS file, AFTER home-redesign.css) ---------- */
-
+/* ==========================================================
+   MOBILE (600px and below)
+   ========================================================== */
 @media (max-width: 600px) {
   .home-page {
-    padding: 1rem 1rem 2rem; /* was 2rem all around — too much side space on phones */
+    padding: 1.2rem 1rem 2.5rem;
   }
 
   .home-hero {
-    gap: 1.5rem;
-    padding: 1rem 0 2rem;
-  }
-
-  .home-hero-text h1 {
-    font-size: 1.9rem;
+    gap: 1.4rem;
+    padding: 0.5rem 0 1.5rem;
   }
 
   .home-hero-sub {
@@ -1052,17 +1066,21 @@
     max-width: 100%;
   }
 
+  .trust-badge {
+    font-size: 0.72rem;
+  }
+
   /* Search bar — stack fields vertically, full width, bigger touch targets */
   .home-search-bar {
     flex-direction: column;
     align-items: stretch;
     padding: 0.9rem;
-    gap: 0.8rem;
+    gap: 0.7rem;
   }
 
   .search-field {
     width: 100%;
-    padding: 0.5rem 0.3rem;
+    padding: 0.4rem 0.3rem;
   }
 
   .search-field input {
@@ -1070,7 +1088,7 @@
   }
 
   .search-divider {
-    display: none; /* vertical divider doesn't make sense in stacked layout */
+    display: none;
   }
 
   .search-btn {
@@ -1080,47 +1098,50 @@
   }
 
   .trust-checks {
-    gap: 0.7rem 1.2rem;
+    gap: 0.6rem 1.1rem;
     font-size: 0.8rem;
   }
 
-  /* Hero visual — full width, no side gaps */
+  /* Hero photo — full-bleed to screen edges, ratio kept so the image never stretches */
   .home-hero-visual {
-    min-height: 260px;
-    margin: 0 -1rem; /* bleeds to screen edge, cancels .home-page's own padding */
-    border-radius: 0;
+    aspect-ratio: 4 / 3;
+    margin: 0 -1rem;
     width: calc(100% + 2rem);
+    border-radius: 0;
   }
 
-  /* Stats bar — full width, bigger numbers, roomier */
+  .hero-visual-badge,
+  .hero-visual-tag {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  /* Stats — 2 per row, roomy */
   .stats-bar {
-    padding: 1.3rem 1.1rem;
-    gap: 1.4rem;
+    padding: 1.2rem 1rem;
+    gap: 1.2rem 1rem;
     justify-content: space-between;
   }
 
   .stat-item {
-    min-width: 42%; /* 2 per row instead of tiny squeezed row */
+    min-width: 42%;
   }
 
   .stat-item strong {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
   }
 
   .stat-quote {
     min-width: 100%;
+    font-size: 0.85rem;
   }
 
-  /* How it works — cards full width instead of narrow fixed 200px */
-  .steps-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
+  /* How it works — full-width cards, icon beside text */
   .step-card {
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
-    padding: 1.1rem 1.3rem;
+    padding: 1rem 1.2rem;
     text-align: left;
     display: flex;
     align-items: center;
@@ -1128,20 +1149,15 @@
   }
 
   .step-icon {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     margin-bottom: 0;
+    flex-shrink: 0;
   }
 
   .step-arrow {
     transform: rotate(90deg);
-    align-self: center;
   }
 
-  .how-it-works h2 {
-    font-size: 1.5rem;
-  }
-
-  /* Feature cards below */
   .features {
     grid-template-columns: 1fr;
   }
